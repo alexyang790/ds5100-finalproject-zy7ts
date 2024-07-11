@@ -35,6 +35,20 @@ class Die():
         )
 
     def changeweight(self, face, new_weight):
+        """
+        Change the weight of a single side of the die.
+
+        Parameters:
+            face (int or str): The face value of the side to be changed.
+            new_weight (int or float): The new weight for the side.
+
+        Raises:
+            IndexError: If the provided face is not in the die array.
+            TypeError: If the provided weight is not numeric or not castable as numeric.
+
+        Returns:
+            None
+        """
         #checking if face is valid i.e. if it is in the die array
         if face not in self.__die['faces'].values:
             raise IndexError('provided face not in die')
@@ -47,12 +61,26 @@ class Die():
         self.__die.loc[self.__die['faces'] == face, 'weight'] = new_weight
 
     def rolldie(self, timesrolled = 1):
+        """
+        A function that simulates rolling a die multiple times and returns the outcomes.
+
+        Parameters:
+            self: the object instance
+            timesrolled (int): the number of times to roll the die, defaults to 1
+
+        Returns:
+            outcomes: list of outcomes from rolling the die
+        """
         #checking if timesrolled is an integer
         if type(timesrolled) != int:
             raise TypeError('timesrolled must be an integer')   
         
-        #rolling the dice and returning outcome
-        outcomes = np.random.choice(self.__die['faces'], timesrolled, p = self.__die['weight'])
+        #rolling the dice and returning outcome possibility is the weight divided by the sum of the weights
+        outcomes = np.random.choice(
+            self.__die['faces'], 
+            timesrolled, 
+            replace = False, 
+            p = self.__die['weight'] /  self.__die['weight'].sum())
         return outcomes
     
     def printdie(self):
