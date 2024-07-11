@@ -62,6 +62,38 @@ class MonteCarloTest(unittest.TestCase):
         # Check if the returned DataFrame from printdie() matches the expected DataFrame
         self.assertTrue(die.printdie().equals(expected_df))
 
+    def test_game_init(self):
+        """
+        A test function to test the initialization of a Game object
+        """
+        array = np.array([1,2,3,4,5,6])
+        die = mt.Die(array)
+        die_list = [die, die, die]
+        game = mt.Game(die_list)
+        self.assertTrue(game.die_list == die_list)
+    
+    def test_game_play(self):
+        """
+        A test function to test the play of a Game object
+        """
+        array = np.array([1,2,3,4,5,6])
+        die = mt.Die(array)
+        die_list = [die, die, die]
+        game = mt.Game(die_list)
+        game.play(4)
+        self.assertTrue(game.show_results() is not None)
+
+    def test_game_showresults(self):
+        """
+        A test function to test the show_results of a Game object
+        """
+        array = np.array([1,2,3,4,5,6])
+        die = mt.Die(array)
+        die_list = [die, die, die]
+        game = mt.Game(die_list)
+        game.play(4)
+        self.assertTrue(game.show_results(method = 'narrow') is not None)
+
     
 
 if __name__ == '__main__':
