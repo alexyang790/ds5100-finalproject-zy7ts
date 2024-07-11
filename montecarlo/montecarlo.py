@@ -17,9 +17,9 @@ class Die():
     """
     def __init__(self, faces: np.ndarray):
         """
-        Initializes a Die object with the provided faces array. 
+        Initializes a new Die instance with the provided faces array. 
 
-        Parameters:
+        Inputs:
             faces (np.array): A NumPy array representing the faces of the die.
 
         Raises:
@@ -52,7 +52,7 @@ class Die():
         """
         Change the weight of a single side of the die.
 
-        Parameters:
+        Attributes:
             face (int or str): The face value of the side to be changed.
             new_weight (int or float): The new weight for the side.
 
@@ -78,7 +78,7 @@ class Die():
         """
         A function that simulates rolling a die multiple times and returns the outcomes.
 
-        Parameters:
+        Attributes:
             self: the object instance
             timesrolled (int): the number of times to roll the die, defaults to 1
 
@@ -105,10 +105,23 @@ class Die():
 
 
 class Game():
-    def __init__(self):
-        pass   
+    def __init__(self, die_list):
+        """
+        Initializes a new instance of the Game class.
+
+        Inputs:
+            die_list (list): a list of already instantiated similar dice
+
+        Attributes:
+            die_list (list): The list of Die objects representing the dice used in the game.
+            play_results (None): A placeholder for the results of the game.
+        """
+        self.die_list = die_list
+        self.play_results = None #placeholder for results of the game
+        
     def play(self):
         pass
+    
     def get_results(self):
         pass
 
