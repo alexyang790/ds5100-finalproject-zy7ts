@@ -160,8 +160,11 @@ class Game():
             raise ValueError("Invalid method specified. Choose 'wide' or 'narrow'.")
     
 class Analyzer():
-    def __init__(self):
-        pass
+    def __init__(self, game):
+        if not isinstance(game, Game):
+            raise ValueError('game must be an instance of Game')
+        self.game = game
+
     def jackpots(self):
         pass
     def face_counts(self):
