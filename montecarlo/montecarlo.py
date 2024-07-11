@@ -46,7 +46,13 @@ class Die():
         #changing the weight
         self.__die.loc[self.__die['faces'] == face, 'weight'] = new_weight
 
+    def rolldie(self, timesrolled = 1):
+        
+
     def printdie(self):
+        """
+        Returns a copy of the private die data frame
+        """
         return self.__die
 
 
