@@ -137,6 +137,18 @@ class Game():
         self.__results = pd.DataFrame(reults)
 
     def show_results(self, method = "wide"):
+        """
+        A function to display the results of the most recent play in the specified format (wide or narrow, defaults to wide).
+
+        Parameters:
+            method (str): The format to return the results in ('wide' or 'narrow'). Defaults to 'wide'.
+
+        Returns:
+            pd.DataFrame: The DataFrame containing the results of the most recent play.
+
+        Raises:
+            ValueError: If the provided method is not 'wide' or 'narrow'.
+        """
         if method == "wide":
             return self.__results
         elif method == 'narrow':
