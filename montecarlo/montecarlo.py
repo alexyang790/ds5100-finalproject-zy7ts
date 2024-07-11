@@ -164,11 +164,19 @@ class Analyzer():
         if not isinstance(game, Game):
             raise ValueError('game must be an instance of Game')
         self.game = game
+        self.results = self.game.show_results(method = 'wide')
 
-    def jackpots(self):
-        pass
+    def jackpot(self):
+        count = (self.results.nunique(axis=1) == 1).sum()
+        return count
+    
     def face_counts(self):
-        pass
+        #save the result df to a wide table
+        wide_format = self.results.melt(var_name='Die', value_name='Face', ignore_index=False)
+        #make a crosstab from the wide table
+        counts_df = pd.crosstab(wide_format.index, wide_format['Face'])
+        return counts_df
+
     def combo_counts(self):
         pass
     def permutation_counts(self):
