@@ -1,6 +1,20 @@
 import pandas as pd
 import numpy as np
 class Die():
+    """
+    The Die() class represents a 'die' that can be rolled and may have different weights on each face
+
+    Attributes:
+        faces (np.array): A NumPy array representing the faces of the die.
+        __weights (np.array): An array representing the weights assigned to each face.
+        __die (pd.DataFrame): A private DataFrame storing faces and their corresponding weights.
+
+    Methods:
+        __init__(self, faces: np.ndarray): initilizes the die object with provided faces array  
+        changeweight(self, face, new_weight): changes the weight of a specified single face of the die to a provided new weight
+        rolldie(self, times=1): rolles the die with provided times (defaults to 1) and returns a list of outcomes (faces)
+        printdie(self): returns the die dataframe
+    """
     def __init__(self, faces: np.ndarray):
         """
         Initializes a Die object with the provided faces array. 
