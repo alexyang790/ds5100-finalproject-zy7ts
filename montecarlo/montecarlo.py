@@ -47,8 +47,14 @@ class Die():
         self.__die.loc[self.__die['faces'] == face, 'weight'] = new_weight
 
     def rolldie(self, timesrolled = 1):
+        #checking if timesrolled is an integer
+        if type(timesrolled) != int:
+            raise TypeError('timesrolled must be an integer')   
         
-
+        #rolling the dice and returning outcome
+        outcomes = np.random.choice(self.__die['faces'], timesrolled, p = self.__die['weight'])
+        return outcomes
+    
     def printdie(self):
         """
         Returns a copy of the private die data frame
