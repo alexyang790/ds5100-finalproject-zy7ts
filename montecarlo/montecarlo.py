@@ -117,14 +117,36 @@ class Game():
             play_results (None): A placeholder for the results of the game.
         """
         self.die_list = die_list
-        self.play_results = None #placeholder for results of the game
+        self.__results = None #placeholder for results of the game
         
-    def play(self):
-        pass
-    
-    def get_results(self):
-        pass
+    def play(self, rolled_times):
+        """
+        Play the die in the list a specified number of times and store the results in a wide data frame.
 
+        Parameters:
+            rolled_times (int): The number of times to roll each die in the list.
+       
+        Raises:
+            TypeError: If the rolled_times parameter is not an integer.
+        """
+        #checking if rolled_times is an integer
+        if not isinstance(rolled_times, int): raise TypeError('rolled_times must be an integer')
+        
+        #play the die in list and store the results in a data frame
+        reults = {i: die.rolldie(rolled_times) for i, die in enumerate(self.die_list)}
+        self.__results = pd.DataFrame(reults)
+
+    def show_results(self, method = "wide"):
+        if method == "wide":
+            return self.__results
+        elif method == 'narrow':
+                narrow_results = self.__results.reset_index().melt(id_vars=['index'], var_name='Die', value_name='Outcome')
+                narrow_results.set_index(['index', 'Die'], inplace=True)
+                narrow_results.index.names = ['Roll Number', 'Die Number']
+                return narrow_results
+        else:
+            raise ValueError("Invalid method specified. Choose 'wide' or 'narrow'.")
+    
 class Analyzer():
     def __init__(self):
         pass
