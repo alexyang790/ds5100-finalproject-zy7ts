@@ -107,7 +107,19 @@ class Die():
 class Game():
     def __init__(self):
         pass   
+    def play(self):
+        pass
+    def get_results(self):
+        pass
 
 class Analyzer():
     def __init__(self):
+        pass
+    def jackpots(self):
+        pass
+    def face_counts(self):
+        pass
+    def combo_counts(self):
+        pass
+    def permutation_counts(self):
         pass
