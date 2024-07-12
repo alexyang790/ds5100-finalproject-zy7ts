@@ -105,6 +105,20 @@ class Die():
 
 
 class Game():
+    """
+    Represents a game where a list of similar dice can be rolled a specified number of times. Their weight can be different
+    
+    Attributes:
+        die_list (list): A list of Die objects representing the dice used in the game.
+        __results (pd.DataFrame): A placeholder for the results of the game.
+
+    Methods:
+        __init__(self, die_list): Initializes a new instance of the Game class.
+        
+        play(self, rolled_times): Plays the die in the list a specified number of times and stores the results in a wide data frame.
+        
+        show_results(self, method="wide"): Displays the results of the most recent play in the specified format ('wide' or 'narrow').
+    """
     def __init__(self, die_list):
         """
         Initializes a new instance of the Game class.
@@ -160,6 +174,24 @@ class Game():
             raise ValueError("Invalid method specified. Choose 'wide' or 'narrow'.")
     
 class Analyzer():
+    """
+    Represents an analyzer that computes various descriptive statistical properties about the results of a single game.
+
+    Attributes:
+        game (Game): An instance of the Game class representing the game being analyzed.
+        __results (pd.DataFrame): A DataFrame containing the results of the game.
+
+    Methods:
+        __init__(self, game): Initializes a new instance of the Analyzer class.
+        
+        jackpot(self): Calculates the number of jackpots in the game.
+        
+        face_counts(self): Calculates the count of each face rolled in each roll of the game.
+        
+        combo_counts(self): Calculates the distinct combinations of faces rolled in each roll of the game.
+        
+        permutation_counts(self): Calculates the distinct permutations of faces rolled in each roll of the game.
+    """
     def __init__(self, game):
         """
         Initializes a new instance of the Analyzer class.
