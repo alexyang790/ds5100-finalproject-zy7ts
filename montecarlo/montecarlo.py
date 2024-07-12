@@ -161,16 +161,40 @@ class Game():
     
 class Analyzer():
     def __init__(self, game):
+        """
+        Initializes a new instance of the Analyzer class.
+
+        Parameters:
+            game (Game): An instance of the Game class.
+
+        Raises:
+            ValueError: If the game parameter is not an instance of the Game class.
+
+        Returns:
+            None
+        """
         if not isinstance(game, Game):
             raise ValueError('game must be an instance of Game')
         self.game = game
         self.__results = self.game.show_results(method = 'wide')
 
     def jackpot(self):
+        """
+        Calculates the number of jackpots in the game.
+
+        Returns:
+            count (int): The number of jackpots.
+        """
         count = (self.__results.nunique(axis=1) == 1).sum()
         return count
     
     def face_counts(self):
+        """
+        Calculates the count of each face rolled in each roll of the game.
+
+        Returns:
+            counts_df (pandas.DataFrame): A DataFrame where the index represents the roll number and the columns represent the face values. The values in the DataFrame are the count of each face rolled in each roll.
+        """
         #save the result df to a wide table
         wide_format = self.__results.melt(var_name='Die', value_name='Face', ignore_index=False)
         #make a crosstab from the wide table
@@ -178,10 +202,25 @@ class Analyzer():
         return counts_df
 
     def combo_counts(self):
+        """
+        Calculates the distinct combinations of faces rolled in each roll of the game.
+
+        Returns:
+            combos_counts (pandas.DataFrame): A DataFrame representing the distinct combinations of faces rolled along with their counts.
+        """
         combos = self.__results.apply(lambda x: tuple(x.sort_values().values), axis=1)
         combos_counts = combos.value_counts().reset_index().rename(columns={0: 'count'})
         combos_counts = combos_counts.set_index(list(combos_counts.columns[:-1]))
         return combos_counts
 
     def permutation_counts(self):
-        pass
+        """
+        Calculates the distinct permutations of faces rolled in each roll of the game.
+
+        Returns:
+            perm_counts (pandas.DataFrame): A DataFrame representing the distinct permutations of faces rolled along with their counts.
+        """
+        perms = self.results.apply(tuple, axis=1)
+        perm_counts = perms.value_counts().reset_index().rename(columns={0: 'count'})
+        perm_counts = perm_counts.set_index(list(perm_counts.columns[:-1]))
+        return perm_counts
