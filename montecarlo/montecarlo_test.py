@@ -94,7 +94,24 @@ class MonteCarloTest(unittest.TestCase):
         game.play(4)
         self.assertTrue(game.show_results(method = 'narrow') is not None)
 
-    
+    def test_analyzer_init(self):
+        """
+        A test function to test the initialization of an Analyzer object
+        """
+        array = np.array([1,2,3,4,5,6])
+        die = mt.Die(array)
+        die_list = [die, die, die]
+        game = mt.Game(die_list)
+        game.play(4)
+        analyzer = mt.Analyzer(game)
+        self.assertIsInstance(analyzer.game, mt.Game)
+
+    def test_analyzer_jackpot(self):
+        """
+        A test function to test the jackpot of an Analyzer object
+        """
+       
+
 
 if __name__ == '__main__':
     unittest.main()
