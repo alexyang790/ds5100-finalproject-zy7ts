@@ -32,9 +32,9 @@ class Die():
             raise TypeError("faces must be a numpy array")
 
         #checking array's data type
-        if not (faces.dtype == np.int64) or (faces.dtype == np.str_):
-            raise TypeError("faces must be a numpy array of integers or strings")
-        
+        if not (np.issubdtype(faces.dtype, np.integer) or np.issubdtype(faces.dtype, np.str_)):
+            raise TypeError("Faces must be a NumPy array of integers or strings.")
+                
         #checking if array's values are distinct
         if len(np.unique(faces)) != len(faces):
             raise ValueError("faces must be distinct values")
@@ -92,8 +92,7 @@ class Die():
         #rolling the dice and returning outcome possibility is the weight divided by the sum of the weights
         outcomes = np.random.choice(
             self.__die['faces'], 
-            timesrolled, 
-            replace = False, 
+            timesrolled,  
             p = self.__die['weight'] /  self.__die['weight'].sum())
         return outcomes
     
@@ -252,7 +251,7 @@ class Analyzer():
         Returns:
             perm_counts (pandas.DataFrame): A DataFrame representing the distinct permutations of faces rolled along with their counts.
         """
-        perms = self.results.apply(tuple, axis=1)
+        perms = self.__results.apply(tuple, axis=1)
         perm_counts = perms.value_counts().reset_index().rename(columns={0: 'count'})
         perm_counts = perm_counts.set_index(list(perm_counts.columns[:-1]))
         return perm_counts
