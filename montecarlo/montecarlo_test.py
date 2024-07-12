@@ -110,8 +110,66 @@ class MonteCarloTest(unittest.TestCase):
         """
         A test function to test the jackpot of an Analyzer object
         """
-       
+        #setting up the analyzer instance
+        faces = np.array([1, 2, 3, 4, 5, 6])
+        die1 = mt.Die(faces)
+        die2 = mt.Die(faces)
+        game = mt.Game([die1, die2])
+        game.play(rolled_times=10)
+        analyzer = mt.Analyzer(game)
 
+        #testing jackpot
+        result = analyzer.jackpot()
+        self.assertTrue(result >= 0)
+       
+    def test_analyzer_face_counts(self):
+        """
+        A test function to test the face_counts of an Analyzer object
+        """
+        #setting up the analyzer instance
+        faces = np.array([1, 2, 3, 4, 5, 6])
+        die1 = mt.Die(faces)
+        die2 = mt.Die(faces)
+        game = mt.Game([die1, die2])
+        game.play(rolled_times=10)
+        analyzer = mt.Analyzer(game)
+
+        #testing face_counts
+        result = analyzer.face_counts()
+        self.assertIsInstance(result, pd.DataFrame, "Face counts should return a DataFrame.")
+
+    def test_analyzer_combo_counts(self):
+        """
+        A test function to test the combo_counts of an Analyzer object
+        """
+        #setting up the analyzer instance
+        faces = np.array([1, 2, 3, 4, 5, 6])
+        die1 = mt.Die(faces)
+        die2 = mt.Die(faces)
+        game = mt.Game([die1, die2])
+        game.play(rolled_times=10)
+        analyzer = mt.Analyzer(game)
+
+        #testing combo_counts
+        result = analyzer.combo_counts()
+        self.assertIsInstance(result, pd.DataFrame, "Combo counts should return a DataFrame.")
+        self.assertIn('count', result.columns, "Combo counts DataFrame should have a 'count' column.")
+
+    def test_analyzer_permutation_counts(self):
+        """
+        A test function to test the permutation_counts of an Analyzer object
+        """
+        #setting up the analyzer instance
+        faces = np.array([1, 2, 3, 4, 5, 6])
+        die1 = mt.Die(faces)
+        die2 = mt.Die(faces)
+        game = mt.Game([die1, die2])
+        game.play(rolled_times=10)
+        analyzer = mt.Analyzer(game)
+
+        #testing permutation_counts
+        result = analyzer.permutation_counts()
+        self.assertIsInstance(result, pd.DataFrame, "Permutation counts should return a DataFrame.")
 
 if __name__ == '__main__':
     unittest.main()
